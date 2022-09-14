@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function a() {
+        console.log("a");
+      }
+
+      a();
+
+      // function b 是异步代码
+      setTimeout(function b() {
+        console.log("b");
+      }, 0);
+
+      a();
+
+      // 所有异步代码都要等到 同步代码执行完成后才会依次执行异步代码
+    </script>
+  </body>
+</html>
