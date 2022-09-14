@@ -1,4 +1,14 @@
-// require 引入 别人写的 http 对象  用来创建服务器
+const express = require('express')
+const app = express()
+const port = 3000
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})// require 引入 别人写的 http 对象  用来创建服务器
 // http 对象 是nodejs 自带的
 const http = require("http");
 
