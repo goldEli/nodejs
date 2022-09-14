@@ -18,11 +18,17 @@ router.get("/", function (req, res, next) {
 用户登录
 http://localhost:8888/users/login?user=zhangxin&password=123
 */
-router.get("/login", function (req, res, next) {
+// router.get("/login", function (req, res, next) {
+//   // 接收数据 在与数据库中的数据进行对比
+//   console.log(req.query);
+//   // 返回数据
+//   res.send({ data: "登录成功" });
+// });
+
+router.post("/login", function (req, res, next) {
   // 接收数据 在与数据库中的数据进行对比
-  console.log(req.query);
+  console.log(req.body);
   // 返回数据
   res.send({ data: "登录成功" });
 });
-
 module.exports = router;
