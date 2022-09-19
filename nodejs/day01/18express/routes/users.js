@@ -1,6 +1,6 @@
 var express = require("express");
+var db = require("../config/db");
 var router = express.Router();
-
 /**
 四种请求方式
 get    获取信息 获取列表
@@ -11,7 +11,16 @@ update 更新信息
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
+  db("select * from student", (err, data) => {
+    //err 错误信息
+    //data 查询结果，返回[]
+
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(data);
+    }
+  });
 });
 
 /**
