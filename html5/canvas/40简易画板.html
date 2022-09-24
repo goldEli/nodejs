@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas width="500" height="500"></canvas>
+    <script>
+      var oC = document.querySelector("canvas");
+
+      var gd = oC.getContext("2d"); //画笔
+
+      gd.beginPath();
+      oC.onmousedown = function (ev) {
+        gd.moveTo(ev.clientX, ev.clientY);
+
+        oC.onmousemove = function (ev) {
+          gd.lineTo(ev.clientX, ev.clientY);
+          gd.stroke();
+        };
+        oC.onmouseup = function () {
+          oC.onmousemove = null;
+          oC.onmouseup = null;
+        };
+        return false;
+      };
+    </script>
+  </body>
+</html>
