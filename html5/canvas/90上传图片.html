@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #file {
+        display: none;
+      }
+      #uploadImg {
+        width: 200px;
+      }
+      canvas {
+        background: #fff;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="file" id="file" />
+    <img src="../../images/upload.png" alt="" id="uploadImg" />
+    <canvas width="200" height="200"> </canvas>
+    <button id="btn">上传</button>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.js"></script>
+    <script>
+      const inputFile = document.getElementById("file");
+      const uploadImg = document.getElementById("uploadImg");
+      const canvas = document.querySelector("canvas");
+      const oBtn = document.getElementById("btn");
+
+      //点击图片触发file标签
+      uploadImg.onclick = function () {
+        inputFile.click();
+      };
+      //当用户选中图片
+      inputFile.onchange = function () {
+        //如果不预览、直接formdata上传
+        // const formdata=new FormData();
+        // formdata.append('file',inputFile.files[0])
+        //如果要预览，不能用，他是文件
+        //读文件
+        let reader = new FileReader(); //创建一个文件阅读器
+        reader.readAsDataURL(inputFile.files[0]); //把文件转化成base64;
+        reader.onload = function (e) {
+          //e就是读完的结果
+          //创建一个img
+          let oImg = new Image();
+          oImg.src = e.target.result;
+          oImg.style.width = "200px";
+          oImg.onload = function () {
+            //如果不想压缩，直接插入就行
+            // document.body.appendChild(oImg);
+            //想压缩画到canvas里面
+            canvas.style.display = "block";
+            let gd = canvas.getContext("2d");
+            gd.drawImage(oImg, 0, 0, canvas.width, canvas.height);
+          };
+        };
+      };
+      //当最后提交的时候
+      oBtn.onclick = function () {
+        //若果没有压缩   这时候传的是formdata的文件形式
+        // const formdata = new FormData();
+        // formdata.append('file', inputFile.files[0])
+        // $.ajax({
+        //     url: '/upload',
+        //     method: 'post',
+        //     data: formdata,
+        //     contentType: false,  //不要让jq用默认的请求头类型
+        //     processData: false,  //数据类型不用默认的
+        //     success: function (res) {
+        //         console.log(res);
+        //     }
+        // })
+
+        //导出base64
+        //如果传的是bese64 就不用fromdata 用post直接传
+        //和后台要沟通。后台要把base64转成文件，存在本地
+        //const url=canvas.toDataURL('image/png',0.5);
+        // $.ajax({
+        //     url: '/upload',
+        //     method: 'post',
+        //     data: {
+        //        file:url
+        //     },
+        //     success: function (res) {
+        //         console.log(res);
+        //     }
+        // })
+        //转化成二进制流
+        canvas.toBlob(
+          function (blob) {
+            //blob是二进制流文件
+            //如果后台接收二进制文件。那就直接用post传
+
+            //二进制流转文件
+            var file = new File([blob], "aaa.png");
+            const formdata = new FormData();
+            formdata.append("file", file);
+            // $.ajax({
+            //   url: "/upload",
+            //   method: "post",
+            //   data: formdata,
+            //   contentType: false, //不要让jq用默认的请求头类型
+            //   processData: false, //数据类型不用默认的
+            //   success: function (res) {
+            //     console.log(res);
+            //   },
+            // });
+          },
+          "image/png",
+          0.5
+        ); //文件类型默认是image/png   质量默认是1  0-1
+      };
+    </script>
+  </body>
+</html>
