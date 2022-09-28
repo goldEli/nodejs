@@ -4,8 +4,17 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const favicon = require("serve-favicon");
+// log
+const morgan = require("morgan");
 
 const usersRouter = require("./routers/users");
+
+// 增加中间件, 扩充express能力
+app.use(morgan("dev"));
+
+app.use("/users", usersRouter);
+// tab页增加小图标
+app.use(favicon(path.join(__dirname, "/public/favicon.ico"))); // __dirname 指当前文件夹的根目录
 
 /* 
     req 请求对象
@@ -27,13 +36,6 @@ app.get("/download", function (req, res) {
   console.log(__dirname, dir);
   res.sendFile(dir);
 });
-
-// 增加中间件, 扩充express能力
-
-app.use("/users", usersRouter);
-// tab页增加小图标
-app.use(favicon(path.join(__dirname, "/public/favicon.ico"))); // __dirname 指当前文件夹的根目录
-
 
 // 监听8888端口
 app.listen(8888);
