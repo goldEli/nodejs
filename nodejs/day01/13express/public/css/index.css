@@ -1,0 +1,68 @@
+h1,
+body,
+.container-fluid {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body,
+.container-fluid {
+    height: 100%;
+}
+
+.header {
+    height: 80px;
+    background: #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+.body {
+    display: flex;
+    height: calc(100% - 80px);
+}
+
+.body .nav {
+    width: 200px;
+    background: #ccc;
+    height: 100%;
+}
+
+.body .context {
+    flex: 1;
+    height: 100%;
+    padding: 20px;
+}
+
+h1 {
+    padding-left: 30px;
+    line-height: 80px;
+}
+
+.header div {
+    font-size: 20px;
+    line-height: 80px;
+}
+
+.header div span {
+    padding-right: 40px;
+}
+
+.header .close {
+    color: red;
+    line-height: 80px;
+}
+
+.searchBox {
+    border-bottom: 1px solid #999;
+    padding-bottom: 20px;
+}
+
+.searchBox button {
+    margin-left: 20px;
+}
+
+.context table {
+    margin-top: 20px;
+}
