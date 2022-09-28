@@ -3,8 +3,9 @@ const express = require("express");
 // nodejs 自带的库 不用安装
 const path = require("path");
 const app = express();
+const favicon = require("serve-favicon");
 
-const usersRouter = require("./routers/users")
+const usersRouter = require("./routers/users");
 
 /* 
     req 请求对象
@@ -27,30 +28,12 @@ app.get("/download", function (req, res) {
   res.sendFile(dir);
 });
 
-app.use("/users", usersRouter)
+// 增加中间件, 扩充express能力
 
-// 获取用户列表
-// app.get("/users", function (req, res) {
-//   res.json({
-//     message: "查询成功",
-//     data: [
-//       { id: 1, name: "张三", pwd: "123" },
-//       { id: 2, name: "李四", pwd: "123" },
-//     ],
-//   });
-// });
-// 增加一个新用户
-// app.get("/users/new", function (req, res) {
-//   const name = req.query.name;
-//   const pwd = req.query.pwd;
-//   console.log(name, pwd);
+app.use("/users", usersRouter);
+// tab页增加小图标
+app.use(favicon(path.join(__dirname, "/public/favicon.ico"))); // __dirname 指当前文件夹的根目录
 
-//   // 存入数据库，让后告诉前端同学 成功了
-
-//   res.json({
-//     message: "添加成功",
-//   });
-// });
 
 // 监听8888端口
 app.listen(8888);
