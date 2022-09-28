@@ -56,7 +56,9 @@
             <button id="submitBtn" type="submit" class="btn btn-primary btn-sm">
               注册
             </button>
-            <a href="/login.html" class="btn btn-link btn-sm">有账号，去登录？</a>
+            <a href="/login.html" class="btn btn-link btn-sm"
+              >有账号，去登录？</a
+            >
           </div>
         </div>
       </form>
@@ -71,7 +73,7 @@
         console.log(name, pwd);
 
         $.ajax({
-          url: "/users/login",
+          url: "/users/register",
           data: { name: name, pwd: pwd },
           type: "post",
           dataType: "json",
@@ -82,7 +84,7 @@
               return;
             }
             if (data.code === 1) {
-              window.location.href = "/index.html";
+              window.location.href = "/login.html";
             }
           },
         });

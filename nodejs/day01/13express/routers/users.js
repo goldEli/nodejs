@@ -15,6 +15,14 @@ router.post("/login", function (req, res) {
 });
 
 // 注册
-router.post("/register", function (req, res) {});
+router.post("/register", function (req, res) {
+  const name = req.body.name;
+  const pwd = req.body.pwd;
+
+  controllersUsers.register([name, pwd], function (data) {
+    res.json(data);
+  });
+
+});
 
 module.exports = router;
