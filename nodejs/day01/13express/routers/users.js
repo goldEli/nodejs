@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const query = require("../config/db");
+const responseData = require("../lib/responseData");
 
 // 获取用户列表
 router.get("/", function (req, res) {
@@ -28,9 +29,12 @@ router.get("/new", function (req, res) {
 });
 
 // 登录
-router.get("/login", function (req, res) {
-  const name = req.query.name;
-  const pwd = req.query.pwd;
+router.post("/login", function (req, res) {
+  // const name = req.query.name;
+  // const pwd = req.query.pwd;
+  console.log(req.body);
+  const name = req.body.name;
+  const pwd = req.body.pwd;
   const sql = `SELECT * FROM users WHERE name=? AND pwd=?`;
 
   query(sql, [name, pwd], function (err, data) {
@@ -42,13 +46,12 @@ router.get("/login", function (req, res) {
       return;
     }
     if (data.length === 1) {
-      res.redirect("/index.html");
-    } else {
-      res.json({
-        code: 0,
-        message: "账号密码错误",
-      });
+      // ajax 不能直接跳转
+      // res.redirect("/index.html");
+      res.json(responseData.onSuccess());
+      return;
     }
+    res.json(responseData.onError("账号密码错误"));
   });
 });
 

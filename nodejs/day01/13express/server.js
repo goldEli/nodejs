@@ -6,16 +6,20 @@ const app = express();
 const favicon = require("serve-favicon");
 // log
 const morgan = require("morgan");
+var bodyParser = require('body-parser')
 
 const usersRouter = require("./routers/users");
 
 // 增加中间件, 扩充express能力
 app.use(morgan("dev"));
 
-app.use("/users", usersRouter);
 // tab页增加小图标
 app.use(favicon(path.join(__dirname, "/public/favicon.ico"))); // __dirname 指当前文件夹的根目录
-
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
+app.use("/users", usersRouter);
 // 文件服务器
 app.use(express.static("public"));
 
