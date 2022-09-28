@@ -16,6 +16,9 @@ app.use("/users", usersRouter);
 // tab页增加小图标
 app.use(favicon(path.join(__dirname, "/public/favicon.ico"))); // __dirname 指当前文件夹的根目录
 
+// 文件服务器
+app.use(express.static("public"));
+
 /* 
     req 请求对象
     res 响应对象
@@ -30,12 +33,12 @@ app.get("/", function (req, res) {
 
 // 下载
 // 不同的路由接口 访问不同的接口
-app.get("/download", function (req, res) {
-  // 下载文件
-  const dir = path.join(__dirname, "/public/123.excel");
-  console.log(__dirname, dir);
-  res.sendFile(dir);
-});
+// app.get("/download", function (req, res) {
+//   // 下载文件
+//   const dir = path.join(__dirname, "/public/123.excel");
+//   console.log(__dirname, dir);
+//   res.sendFile(dir);
+// });
 
 // 监听8888端口
 app.listen(8888);
