@@ -7,22 +7,29 @@ const favicon = require("serve-favicon");
 // log
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
 const usersRouter = require("./routers/users");
 
 // 增加中间件, 扩充express能力
 app.use(morgan("dev"));
-app.use(cookieParser());
+// app.use(cookieParser());
+//设置中间件，keys和secret必须要有一个
+app.use(
+  cookieSession({
+    secret: "123",
+    maxAge: 24 * 60 * 60 * 1000, //有效时间为24小时
+  })
+);
 
 //  检测是否登录
 app.use(function (req, res, next) {
   var url = req.url;
+  console.log(req.session.username);
   // 登录注册不拦截的路由
   if (
     !url.includes("login") &&
     !url.includes("register") &&
-    // !req.signedCookies.user
-    !req.cookies.user
+    !req.session.username
   ) {
     res.redirect("/login.html");
     return;

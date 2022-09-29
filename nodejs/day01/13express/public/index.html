@@ -40,6 +40,15 @@
     </div>
     <script>
       $("#username").text(document.cookie.split("=")[1]);
+
+      $.ajax({
+        url: "/users/username",
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+          $("#username").text(data.data);
+        },
+      });
     </script>
   </body>
 </html>
