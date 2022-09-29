@@ -17,7 +17,6 @@ app.use(cookieParser());
 //  检测是否登录
 app.use(function (req, res, next) {
   var url = req.url;
-  console.log(req)
   // 登录注册不拦截的路由
   if (
     !url.includes("login") &&
@@ -56,15 +55,6 @@ app.get("/", function (req, res) {
 
   res.sendFile(path.join(__dirname, "/public/index.html"));
 });
-
-// 下载
-// 不同的路由接口 访问不同的接口
-// app.get("/download", function (req, res) {
-//   // 下载文件
-//   const dir = path.join(__dirname, "/public/123.excel");
-//   console.log(__dirname, dir);
-//   res.sendFile(dir);
-// });
 
 // 监听8888端口
 app.listen(8888);

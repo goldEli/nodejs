@@ -79,7 +79,7 @@
           dataType: "json",
           success: function (data) {
             console.log(data);
-            if (data.code === 0) {
+            if (data.code !== 200) {
               alert(data.message);
               return;
             }
