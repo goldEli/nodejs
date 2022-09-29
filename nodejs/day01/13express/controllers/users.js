@@ -18,7 +18,7 @@ md.login = function (params, callback) {
 };
 
 md.register = function (params, callback) {
-  modelsUsers.addUsers(params, function (err, data) {
+  modelsUsers.add(params, function (err, data) {
     if (err && err.errno === 1062) {
       callback({
         code: 400,

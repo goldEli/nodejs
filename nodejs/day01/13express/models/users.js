@@ -8,14 +8,8 @@ md.getUsersByNameAndPwd = function (params, callback) {
   });
 };
 
-md.getUsersByName = function (params, callback) {
-  const sql = `SELECT * FROM users WHERE name=?`;
-  query(sql, params, function (err, data) {
-    callback(err, data);
-  });
-};
 
-md.addUsers = function (params, callback) {
+md.add = function (params, callback) {
   const sql = `INSERT INTO users (name, pwd) VALUES (?, ?)`;
   query(sql, params, function (err, data) {
     callback(err, data);

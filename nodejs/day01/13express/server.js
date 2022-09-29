@@ -9,6 +9,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cookieSession = require("cookie-session");
 const usersRouter = require("./routers/users");
+const studentsRouter = require("./routers/students");
 
 // 增加中间件, 扩充express能力
 app.use(morgan("dev"));
@@ -26,14 +27,14 @@ app.use(function (req, res, next) {
   var url = req.url;
   console.log(req.session.username);
   // 登录注册不拦截的路由
-  if (
-    !url.includes("login") &&
-    !url.includes("register") &&
-    !req.session.username
-  ) {
-    res.redirect("/login.html");
-    return;
-  }
+  // if (
+  //   !url.includes("login") &&
+  //   !url.includes("register") &&
+  //   !req.session.username
+  // ) {
+  //   res.redirect("/login.html");
+  //   return;
+  // }
   //如果登录过，我们就执行下一个中间件
   next();
 });
@@ -47,7 +48,10 @@ app.use(
     extended: true,
   })
 );
+
+// 路由
 app.use("/users", usersRouter);
+app.use("/students", studentsRouter);
 // 文件服务器
 app.use(express.static("public"));
 
