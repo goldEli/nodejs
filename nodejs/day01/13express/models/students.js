@@ -11,7 +11,6 @@ md.getAll = function (callback) {
 md.getAllBySearchName = function (params, callback) {
   const sql = `SELECT * FROM students WHERE name like ?`;
   query(sql, [`%${params.searchName}%`], function (err, data) {
-    console.log(data)
     callback(err, data);
   });
 };
