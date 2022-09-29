@@ -13,16 +13,16 @@ md.login = function (params, callback) {
 };
 
 md.register = function (params, callback) {
-  const name = [params[0]];
-  modelsUsers.getUsersByName([name], function (err, data) {
-    if (data.length === 1) {
-      callback(responseData.onError("账号已存在"));
+  modelsUsers.addUsers(params, function (err, data) {
+    if (err && err.errno === 1062) {
+      callback(responseData.onError("用户名已存在"));
       return;
     }
-
-    modelsUsers.addUsers(params, function (err, data) {
-      callback(responseData.onSuccess(data, "注册成功"));
-    });
+    if (err) {
+      callback(responseData.onError("注册失败"));
+      return;
+    }
+    callback(responseData.onSuccess(data, "注册成功"));
   });
 };
 

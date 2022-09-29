@@ -6,7 +6,7 @@ let config = {
   port: 3306, // 数据库端口号
   user: "root", // 账号
   password: "123456", // 密码
-  database: "test1", // 要连接的数据库名字
+  database: "admin", // 要连接的数据库名字
 };
 
 // 创建连接池
@@ -18,21 +18,14 @@ const query = (sql, param = null, callback) => {
   pool.getConnection(function (err, connection) {
     if (err) {
       console.log(err);
-      callback({
-        msg: "数据库连接失败：",
-        err,
-      });
+      callback(err);
     }
 
     // 操作数据库
     connection.query(sql, param, function (error, doc) {
       connection.release(); // 释放连接池
       if (error) {
-        console.log(error);
-        callback({
-          msg: "数据库连接失败：",
-          err,
-        });
+        callback(error);
         return;
       }
       // 操作成功
