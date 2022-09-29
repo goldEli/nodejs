@@ -16,6 +16,7 @@
 
   <body>
     <div class="container-fluid">
+      <!-- 头部 -->
       <div class="header">
         <h1>后台管理系统</h1>
         <div>
@@ -25,22 +26,212 @@
           </a>
         </div>
       </div>
+      <!-- 内容 -->
       <div class="body">
         <div class="nav">
           <ul class="nav nav-pills nav-stacked">
             <li><a href="./home.html">首页</a></li>
-            <li><a href="./student.html">学生管理</a></li>
+            <li class="active"><a href="./student.html">学生管理</a></li>
             <li><a href="./teacher.html">教师管理</a></li>
             <li><a href="./drom.html">宿舍管理</a></li>
-            <li class="active"><a href="./admin.html">管理员管理</a></li>
+            <li><a href="./admin.html">管理员管理</a></li>
           </ul>
         </div>
-        <div class="context">123</div>
+        <div class="context">
+          <form class="form-inline">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control searchInp"
+                placeholder="按姓名搜索"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="请输入名称"
+              />
+            </div>
+            <button type="button" class="searchBtn btn btn-default">
+              搜索
+            </button>
+            <button
+              class="btn btn-success"
+              data-toggle="modal"
+              data-target="#addModal"
+            >
+              新增
+            </button>
+          </form>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>名字</th>
+                  <th>年龄</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>张三</td>
+                  <td>20</td>
+                  <td>
+                    <button type="button" class="btn btn-primary btn-xs">
+                      修改
+                    </button>
+                    <button type="button" class="btn btn-danger btn-xs">
+                      删除
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- 弹窗 -->
+      <div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                <span>&times;</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">管理员添加</h4>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">编号</label>
+                  <input type="text" class="form-control addId" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">姓名</label>
+                  <input type="text" class="form-control addName" />
+                </div>
+                <div class="form-group">
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="addSex"
+                      checked
+                      id="inlineRadio1"
+                      value="男"
+                    />
+                    男
+                  </label>
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="addSex"
+                      id="inlineRadio2"
+                      value="女"
+                    />
+                    女
+                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputPassword1">账号</label>
+                  <input type="text" class="form-control addUser" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">电话</label>
+                  <input type="text" class="form-control addTel" />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="modal"
+              >
+                取消
+              </button>
+              <button type="button" class="btn btn-primary addSaveBtn">
+                保存
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                <span>&times;</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">管理员修改</h4>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">编号</label>
+                  <input disabled type="text" class="form-control editId" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">姓名</label>
+                  <input type="text" class="form-control editName" />
+                </div>
+                <div class="form-group">
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="editSex"
+                      checked
+                      id="editRadio1"
+                      value="男"
+                    />
+                    男
+                  </label>
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="editSex"
+                      id="editRadio2"
+                      value="女"
+                    />
+                    女
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">账号</label>
+                  <input disabled type="text" class="form-control editUser" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">电话</label>
+                  <input type="text" class="form-control editTel" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">密码</label>
+                  <input type="text" class="form-control editPass" />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="modal"
+              >
+                取消
+              </button>
+              <button type="button" class="btn btn-primary editSaveBtn">
+                保存
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script>
-      $("#username").text(document.cookie.split("=")[1]);
-
       $.ajax({
         url: "/users/username",
         type: "get",
