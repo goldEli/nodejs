@@ -11,7 +11,7 @@
     />
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="./css/index.css"/>
+    <link rel="stylesheet" href="./css/index.css" />
   </head>
 
   <body>
@@ -19,8 +19,10 @@
       <div class="header">
         <h1>后台管理系统</h1>
         <div>
-          <span id="username">张三</span>
-          <span class="close glyphicon glyphicon-off"></span>
+          <span id="username">null</span>
+          <a href="/users/logout">
+            <span class="close glyphicon glyphicon-off"></span>
+          </a>
         </div>
       </div>
       <div class="body">
@@ -33,12 +35,11 @@
             <li class="active"><a href="./admin.html">管理员管理</a></li>
           </ul>
         </div>
-        <div class="context">
-          123
-        </div>
+        <div class="context">123</div>
       </div>
     </div>
-
-   
+    <script>
+      $("#username").text(document.cookie.split("=")[1]);
+    </script>
   </body>
 </html>
