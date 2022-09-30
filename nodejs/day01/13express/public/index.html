@@ -108,11 +108,19 @@
               <form>
                 <div class="form-group">
                   <label>姓名</label>
-                  <input id="studentName" type="text" class="form-control" />
+                  <input
+                    id="addStudentNameInput"
+                    type="text"
+                    class="form-control"
+                  />
                 </div>
                 <div class="form-group">
                   <label>年龄</label>
-                  <input id="studentAge" type="number" class="form-control" />
+                  <input
+                    id="addStudentAgeInput"
+                    type="number"
+                    class="form-control"
+                  />
                 </div>
               </form>
             </div>
@@ -138,50 +146,34 @@
               <button type="button" class="close" data-dismiss="modal">
                 <span>&times;</span>
               </button>
-              <h4 class="modal-title" id="myModalLabel">管理员修改</h4>
+              <h4 class="modal-title" id="myModalLabel">学生修改</h4>
             </div>
             <div class="modal-body">
               <form>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">编号</label>
-                  <input disabled type="text" class="form-control editId" />
+                  <label>id</label>
+                  <input
+                    id="editStudentIdInput"
+                    disabled
+                    type="text"
+                    class="form-control"
+                  />
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">姓名</label>
-                  <input type="text" class="form-control editName" />
+                  <label>姓名</label>
+                  <input
+                    id="editStudentNameInput"
+                    type="text"
+                    class="form-control"
+                  />
                 </div>
                 <div class="form-group">
-                  <label class="radio-inline">
-                    <input
-                      type="radio"
-                      name="editSex"
-                      checked
-                      id="editRadio1"
-                      value="男"
-                    />
-                    男
-                  </label>
-                  <label class="radio-inline">
-                    <input
-                      type="radio"
-                      name="editSex"
-                      id="editRadio2"
-                      value="女"
-                    />
-                    女
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">账号</label>
-                  <input disabled type="text" class="form-control editUser" />
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">电话</label>
-                  <input type="text" class="form-control editTel" />
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">密码</label>
-                  <input type="text" class="form-control editPass" />
+                  <label>年龄</label>
+                  <input
+                    id="editStudentAgeInput"
+                    type="number"
+                    class="form-control"
+                  />
                 </div>
               </form>
             </div>
@@ -193,7 +185,7 @@
               >
                 取消
               </button>
-              <button type="button" class="btn btn-primary editSaveBtn">
+              <button id="editSaveBtn" type="button" class="btn btn-primary ">
                 保存
               </button>
             </div>

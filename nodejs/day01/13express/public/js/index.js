@@ -29,70 +29,122 @@ function renderTable(data) {
 }
 
 // 请求table数据
-function getStudents() {
+function getStudents(callback) {
   $.ajax({
     url: "/students",
     type: "get",
     dataType: "json",
     success: function (data) {
       if (data.code === 200) {
-        renderTable(data.data);
+        callback(data.data);
       }
     },
   });
 }
 
 // 通过id删除table数据
-function deleteStudentById(id) {
+function deleteStudentById(id, callback) {
   $.ajax({
     url: "/students",
     data: { id },
     type: "delete",
     dataType: "json",
     success: function () {
-      // 删除成功 重新请求table数据
-      getStudents();
+      callback();
     },
   });
 }
 
 // 添加学生
-function addStudent(name, age) {
+function addStudent(name, age, callback) {
   $.ajax({
     url: "/students",
     data: { name, age },
     type: "post",
     dataType: "json",
     success: function () {
-      // 添加成功 重新请求table数据
-      getStudents();
+      callback();
+    },
+  });
+}
+
+// 修改学生
+function editStudent(id, name, age, callback) {
+  $.ajax({
+    url: "/students",
+    data: { id, name, age },
+    type: "put",
+    dataType: "json",
+    success: function () {
+      callback();
     },
   });
 }
 
 // 进入页面 请求table数据
-getStudents();
+getStudents(function (data) {
+  renderTable(data);
+});
 
 /* 
       删除
       */
 $("tbody").on("click", ".delete-btn", function (event) {
   const id = parseInt($(event.target).attr("data-id"));
-  deleteStudentById(id);
+  deleteStudentById(id, function () {
+    getStudents(function (data) {
+      renderTable(data);
+    });
+  });
 });
 
-/* 
-      添加
-      */
+/*
+ *添加
+ */
 $("#addStudentBtn").click(function (event) {
-  const name = $("#studentName").val();
-  const age = parseFloat($("#studentAge").val());
+  const name = $("#addStudentNameInput").val();
+  const age = parseFloat($("#addStudentAgeInput").val());
   if (!name || !age) {
     alert("不能为空");
     return;
   }
   // 添加到后端
-  addStudent(name, age);
+  addStudent(name, age, function () {
+    getStudents(function (data) {
+      renderTable(data);
+    });
+  });
 
-  $('#addModal').modal('hide')
+  $("#addModal").modal("hide");
+});
+
+/**
+ * 修改
+ */
+$("tbody").on("click", ".edit-btn", function (event) {
+  const id = parseInt($(event.target).attr("data-id"));
+  console.log(id);
+  // 打开模态框
+  $("#editModal").modal("show");
+
+  getStudents(function (data) {
+    // renderTable(data);
+    const current = data.find((item) => item.id);
+    $("#editStudentIdInput").val(id);
+    $("#editStudentAgeInput").val(current.age);
+    $("#editStudentNameInput").val(current.name);
+  });
+});
+
+$("#editSaveBtn").click(function () {
+  const id = parseFloat($("#editStudentIdInput").val());
+  const age = parseFloat($("#editStudentAgeInput").val());
+  const name = $("#editStudentNameInput").val();
+  editStudent(id, name, age, function () {
+    // 更新学生
+    getStudents(function (data) {
+      renderTable(data);
+    });
+  });
+  $("#editModal").modal("hide");
 });
