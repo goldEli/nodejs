@@ -68,6 +68,21 @@ function addStudent(name, age, callback) {
   });
 }
 
+// 搜索学生
+function searchStudentsByName(searchName, callback) {
+  $.ajax({
+    url: "/students/searchName",
+    data: { searchName },
+    type: "post",
+    dataType: "json",
+    success: function (data) {
+      if (data.code) {
+        callback(data.data);
+      }
+    },
+  });
+}
+
 // 修改学生
 function editStudent(id, name, age, callback) {
   $.ajax({
@@ -101,7 +116,7 @@ $("tbody").on("click", ".delete-btn", function (event) {
 /*
  *添加
  */
-$("#addStudentBtn").click(function (event) {
+$("#addSaveBtn").click(function (event) {
   const name = $("#addStudentNameInput").val();
   const age = parseFloat($("#addStudentAgeInput").val());
   if (!name || !age) {
@@ -147,4 +162,11 @@ $("#editSaveBtn").click(function () {
     });
   });
   $("#editModal").modal("hide");
+});
+
+$("#searchBtn").click(function () {
+  const searchByName = $("#searchNameInput").val();
+  searchStudentsByName(searchByName, function (data) {
+    renderTable(data)
+  });
 });
