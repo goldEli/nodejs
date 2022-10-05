@@ -15,6 +15,10 @@
 ### 目录
 
 ```
+$ treer -i "node_modules"
+```
+
+```
 ├─package-lock.json   // 版本锁定
 ├─package.json        // 项目配置（第三方模块管理）
 ├─README.md           // 项目介绍 
