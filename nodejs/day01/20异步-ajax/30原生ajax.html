@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //1.创建XMLHTTPRequest对象，简称XHR，用于与服务器交换数据
+      xhr = new XMLHttpRequest();
+
+      //2.和后台建立联系
+      //语法 xhr.open("请求方式","请求地址","是否异步")
+
+      xhr.open("get", "/checkuser.do", true);
+
+      //3.发送
+      xhr.send();
+
+      //4.等待后台回复
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if ((xhr.status >= 200 && xhr.status <= 300) || xhr.status == 304) {
+            //成功了
+          } else {
+            //失败了
+          }
+        }
+      };
+    </script>
+  </body>
+</html>

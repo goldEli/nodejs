@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>123</div>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.js"></script>
+    <script>
+      /**
+        什么是异步  为什么需要异步
+
+        js运行一个线程
+        页面渲染一个线程
+
+        js运行完 -》 页面渲染
+
+        假如js运行时间太长 阻碍页面渲染，这样用户就会看到空白的页面
+
+        哪些需要长时间处理的
+        1. 定时器
+        2. 接口请求（1s 2s）
+
+        浏览器提供了 异步处理接口
+        1. setTimeout  setInterval
+        2. ajax
+
+        通过回调的方式处理异步，页面就不会阻塞
+
+        js代码运行 -》 页面渲染 -》执行异步回调的代码 -》 页面渲染 -》执行异步回调的代码 -》页面渲染   循环下去
+        */
+
+      // 模拟长时间的运行
+      // for(let i = 0; i< 10000000000; ++i) {
+      //     console.log(i)
+      // }
+
+      // setTimeout(function() {
+      //     //异步回调代码
+      //     console.log(123)
+      // }, 1000)
+
+      // $.ajax({
+      //     url: "./123.txt",
+      //     method: "get",
+      //     dataType: "json",
+      //     success: function() {
+      //        // 异步回调代码
+      //         console.log(132)
+      //     }
+      // })
+
+      function callback() {
+        // 异步操作完执行的代码
+      }
+      setTimeout(callback, 1000);
+      //   $.ajax({
+      //     url: "./classes.txt",
+      //     method: "get",
+      //     dataType: "json",
+      //     success: function (data) {
+      //       console.log(data);
+      //     },
+      //   });
+
+      /* 
+        跨域问题：
+        通过域名访问页面  http://127.0.0.1:5500/
+
+        ajax 地址也需要是相同的域名 不然会被拦截（安全性考虑）
+        浏览器约束你访问相同的服务器，以防止被黑客注入代码，访问其他其他服务器
+
+        浏览器漏铜：jsonp 绕开跨域限制
+      */
+
+      /*
+      只要发现传入回调函数 都是异步
+      */
+
+      /*
+        实现异步的方式
+        1. 回调
+        2. promise
+        3. generator
+        4. async await
+      */
+
+      /* 
+      例子 Ajax 获取后台数据
+
+      查询第一个学生的余额
+      1. 获取所有学生
+      2. 通过名字获取 卡号 
+      3. 通过卡号 获取余额
+      */
+
+      function getAllStudents(callback) {
+        $.ajax({
+          url: "./students.txt",
+          method: "get",
+          dataType: "json",
+          success: function (data) {
+            callback(data);
+          },
+        });
+      }
+
+      function getBankIdByStudentName(studentName, callback) {
+        $.ajax({
+          url: "./bank.txt",
+          method: "get",
+          dataType: "json",
+          success: function (data) {
+            callback(data[studentName]);
+          },
+        });
+      }
+
+      function getMoneyByBankId(bankId, callback) {
+        $.ajax({
+          url: "./money.txt",
+          method: "get",
+          dataType: "json",
+          success: function (data) {
+            callback(data[bankId]);
+          },
+        });
+      }
+
+      getAllStudents(function (students) {
+        console.log("获取所有学生: ", students);
+        const firstStudent = students[0];
+        getBankIdByStudentName(firstStudent, function (bankId) {
+          console.log(`${firstStudent}银行卡号：`, bankId);
+          getMoneyByBankId(bankId, function (money) {
+            console.log(`${firstStudent}银行余额：`, money);
+          });
+        });
+      });
+
+      /* 
+       callback hell 回调地狱
+       不停的嵌套 可读性很差 
+
+       通过优化这个问题
+       promise
+       async await
+      */
+    </script>
+  </body>
+</html>
