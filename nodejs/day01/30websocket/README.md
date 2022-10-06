@@ -38,5 +38,27 @@ socket.broadcast.emit 信息传输对象为所有 client ，排除当前socket �
 信息传输对象为所有 client 。
 
 
+### Message key
+
+server
+
+* connection
+* disconnect
+
+
+* login
+* postMsg 
+
+client
+
+* connect
+
+* nickExisted
+* loginSuccess
+* error
+* system
+* newMsg
+
+
 
 
