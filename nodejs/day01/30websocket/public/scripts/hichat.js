@@ -1,10 +1,3 @@
-/*
- *hichat v0.4.2
- *Wayou Mar 28,2014
- *MIT license
- *view on GitHub:https://github.com/wayou/HiChat
- *see it in action:http://hichat.herokuapp.com/
- */
 
 window.onload = function () {
   var hichat = new HiChat();
@@ -41,67 +34,54 @@ HiChat.prototype = {
 
     // 系统报错
     this.socket.on("error", function (err) {
-      if (document.getElementById("loginWrapper").style.display == "none") {
-        document.getElementById("status").textContent = "!fail to connect :(";
-      } else {
-        document.getElementById("info").textContent = "!fail to connect :(";
-      }
+      alert(err);
     });
 
     // 系统信息
     this.socket.on("system", function (nickName, userCount, type) {
+      console.log({ nickName, type });
       let msg = "";
       if (type === "login") {
         msg = nickName + "加入";
       } else {
         msg = nickName + "离开";
       }
-      this._displayNewMsg("系统消息：", msg);
+      that._displayNewMsg("系统消息：", msg);
 
       // 更新用户数
       $("#status").text(`当前${userCount}人在线`);
     });
 
     // 发送新消息
-    // this.socket.on("newMsg", function (user, msg) {
-    //   that._displayNewMsg(user, msg);
-    // });
+    this.socket.on("newMsg", function (user, msg) {
+      that._displayNewMsg(user, msg);
+    });
 
     // 点击登录按钮
     $("#loginBtn").click(function () {
       const nickName = $("#nicknameInput").val().trim();
-      debugger  
       if (nickName) {
         that.socket.emit("login", nickName);
       }
     });
 
-    // // 点击发送按钮
-    // document.getElementById("sendBtn").addEventListener(
-    //   "click",
-    //   function () {
-    //     var messageInput = document.getElementById("messageInput"),
-    //       msg = messageInput.value;
-    //     messageInput.value = "";
-    //     messageInput.focus();
-    //     if (msg.trim().length != 0) {
-    //       that.socket.emit("postMsg", msg);
-    //       that._displayNewMsg("me", msg);
-    //       return;
-    //     }
-    //   },
-    //   false
-    // );
+    // 点击发送按钮
+    $("#sendBtn").click(function () {
+      const messageInputValue = $("#messageInput").val().trim();
+      $("#messageInput").val("");
+      if (messageInputValue != 0) {
+        that.socket.emit("postMsg", messageInputValue);
+      }
+    });
   },
 
   _displayNewMsg: function (user, msg) {
-    var container = document.getElementById("historyMsg"),
-      msgToDisplay = document.createElement("p"),
-      date = new Date().toTimeString().substr(0, 8);
+    const date = new Date().toTimeString().substr(0, 8);
+    $("#historyMsg").append(
+      `<p>${user}<span class="timespan">${date}: </span>${msg}</p>`
+    );
 
-    msgToDisplay.innerHTML =
-      user + '<span class="timespan">(' + date + "): </span>" + msg;
-    container.appendChild(msgToDisplay);
-    container.scrollTop = container.scrollHeight;
+    // 思考题 滚动页面最底部
+    $("#historyMsg").scrollTop($("#historyMsg").prop("scrollHeight"));
   },
 };

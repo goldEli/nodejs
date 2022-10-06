@@ -14,18 +14,18 @@ io.sockets.on("connection", function (socket) {
   //new user login
   socket.on("login", function (nickname) {
     if (users.indexOf(nickname) > -1) {
-      socket.emit("名字已经存在");
+      socket.emit("error", "名字已经存在");
     } else {
       //socket.userIndex = users.length;
       socket.nickname = nickname;
       users.push(nickname);
       socket.emit("loginSuccess", nickname);
-      socket.emit("system", nickname, users.length, "login");
+      io.sockets.emit("system", nickname, users.length, "login");
     }
   });
   //user leaves
   socket.on("disconnect", function () {
-    console.log("断开链接")
+    console.log("断开链接");
     if (socket.nickname != null) {
       //users.splice(socket.userIndex, 1);
       users.splice(users.indexOf(socket.nickname), 1);
@@ -34,6 +34,6 @@ io.sockets.on("connection", function (socket) {
   });
   //new message get
   socket.on("postMsg", function (msg) {
-    socket.broadcast.emit("newMsg", socket.nickname, msg);
+    io.sockets.emit("newMsg", socket.nickname, msg);
   });
 });

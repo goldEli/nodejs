@@ -26,6 +26,16 @@ npm init -y
 npm install express socket.io
 ```
 
+### note
+
+#### socket.emit
+
+socket.emit 信息传输对象为当前 socket 对应的 client ，各个client socket 相互不影响。
+
+#### socket.broadcast.emit
+socket.broadcast.emit 信息传输对象为所有 client ，排除当前socket 对应的 client 。
+#### io.sockets.emit
+信息传输对象为所有 client 。
 
 
 
