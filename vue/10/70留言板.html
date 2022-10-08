@@ -27,7 +27,8 @@
         },
         methods: {
           add: function () {
-            this.list.push({ text: event.target.value });
+            // this.list.push({ text: event.target.value });
+            this.list.push({ text: this.inputVal });
             this.inputVal = "";
           },
           del: function (index) {
