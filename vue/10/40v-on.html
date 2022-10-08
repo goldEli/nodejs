@@ -12,6 +12,7 @@
       <button v-on:click="reverseMessage">翻转字符串</button>
       <button v-on:click="fn">btn</button>
       <button @click="fn1(1111)">btn1</button>
+      <input @keyup.enter="onEnter" />
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
@@ -32,6 +33,9 @@
           },
           fn1: function (data) {
             console.log(event.target, data);
+          },
+          onEnter: function () {
+            console.log(event.target.value);
           },
         },
       });
