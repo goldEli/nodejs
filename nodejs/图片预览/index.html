@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="file" />
+    <img />
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.js"></script>
+    <script>
+      $("input").change(function (event) {
+        const imgFile = event.target.files[0];
+        const imgType = imgFile.name.split(".").pop();
+        console.log(imgType);
+
+        // 是否是图片
+        if (!["jpeg", "jpg", "png"].includes(imgType)) {
+          alert("请选择图片");
+          // 清空选择
+          $("input").val("");
+          return;
+        }
+
+        // 预览图片
+        //FileReader 对象允许 Web 应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容
+        let reader = new FileReader();
+        // 开始读取指定的Blob中的内容。一旦完成，result属性中将包含一个data: URL 格式的 Base64 字符串以表示所读取文件的内容。
+        reader.readAsDataURL(imgFile);
+
+        reader.onload = function (e) {
+          // 由于读取文件时异步的，所以必须通过Onload事件来那最后的结果。
+          var base64str = e.target.result; // “data:image/png;base64,UklGRk...."
+          console.log(base64str)
+          // 直接把base64字符串，赋值img.src，就可以预览图片了。
+          $("img").attr("src", base64str)
+        };
+      });
+    </script>
+  </body>
+</html>
