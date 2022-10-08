@@ -18,10 +18,15 @@
       <ul>
         <li v-for="todo in todos">
           <input v-model="todo.complete" type="checkbox" />
-          <span v-bind:class="{del: todo.complete}">{{todo.value}}</span>
+          <span :class="{del: todo.complete}">{{todo.value}}</span>
           <button @click="del(todo.id)">删除</button>
         </li>
       </ul>
+      <div>
+        <span>全选</span>
+        <input v-model="selectAllValue" @click="selectAll" type="checkbox" />
+        <span>{{status}}</span>
+      </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
@@ -32,6 +37,17 @@
             { id: 1, value: "123", complete: true },
             { id: 2, value: "111", complete: false },
           ],
+          inputVal: "",
+          selectAllValue: false,
+        },
+        computed: {
+          status: function () {
+            const count = this.todos.length;
+            const completeCount = this.todos.filter(
+              (item) => item.complete
+            ).length;
+            return `${completeCount}/${count}`;
+          },
         },
         methods: {
           del: function (id) {
@@ -50,6 +66,14 @@
               complete: false,
             });
             this.inputVal = "";
+          },
+          selectAll: function () {
+            for (let i = 0; i < this.todos.length; ++i) {
+              const todo = this.todos[i];
+              todo.complete = !this.selectAllValue;
+            }
+
+            this.selectAllValue = !this.selectAllValue;
           },
         },
       });
