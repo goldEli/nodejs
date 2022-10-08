@@ -10,6 +10,8 @@
     <div id="app">
       <h1>{{message}}</h1>
       <button v-on:click="reverseMessage">翻转字符串</button>
+      <button v-on:click="fn">btn</button>
+      <button @click="fn1(1111)">btn1</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
@@ -24,6 +26,12 @@
             // v-on 绑定method 到dom对象
             console.log(this.message);
             this.message = this.message.split("").reverse().join("");
+          },
+          fn: function () {
+            console.log(event.target);
+          },
+          fn1: function (data) {
+            console.log(event.target, data);
           },
         },
       });
