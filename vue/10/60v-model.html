@@ -8,23 +8,29 @@
   </head>
   <body>
     <div id="app">
-      <p v-if="seen">现在你看到我了</p>
+      <input v-model:value="inputVal" />
+      <p>{{inputVal}}</p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
-      /* 
-        vue 提供了很多指令实现页面交互  v开头
-      */
+      // 根据input的输入改变p标签内容
       const app = new Vue({
         el: "#app",
         data: {
-          seen: true,
+          inputVal: "123",
         },
       });
 
-      setTimeout(() => {
-        app.seen = false;
-      }, 2000);
+      /* 
+        v-model 实现了 数据和页面的双向绑定
+
+        改变数据 -》页面改变
+        页面改变 -》数据改变
+
+        v-model 底层原理：语法糖 由 v-bind + v-on 实现 
+
+      */
+
     </script>
   </body>
 </html>
