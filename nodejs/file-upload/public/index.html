@@ -54,6 +54,7 @@
 
         var formData = new FormData();
         formData.append("uploadImg", $("#file")[0].files[0]);
+        formData.append("name", 123);
 
         $.ajax({
           url: "/upload",
@@ -62,7 +63,7 @@
           processData: false, // tell jQuery not to process the data
           contentType: false, // tell jQuery not to set contentType
           success: function (data) {
-            alert(data);
+            console.log(data);
           },
         });
       });

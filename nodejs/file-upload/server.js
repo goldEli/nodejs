@@ -24,6 +24,7 @@ app.use(morgan("dev"));
 app.post("/upload", function (req, res) {
   console.log(req.files.uploadImg.name);
   const file = req.files.uploadImg;
+  console.log(req.body.name)
   try {
     file.mv("./public/" + file.name);
   } catch (error) {
