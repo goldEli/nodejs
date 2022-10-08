@@ -27,7 +27,6 @@ io.sockets.on("connection", function (socket) {
   socket.on("disconnect", function () {
     console.log("断开链接");
     if (socket.nickname != null) {
-      //users.splice(socket.userIndex, 1);
       users.splice(users.indexOf(socket.nickname), 1);
       socket.broadcast.emit("system", socket.nickname, users.length, "logout");
     }
