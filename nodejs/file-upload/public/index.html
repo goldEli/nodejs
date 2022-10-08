@@ -15,6 +15,7 @@
     >
       <input id="file" type="file" name="uploadImg" />
       <input type="submit" value="upload" />
+      <button id="submitBtn">ajax上传</button>
     </form>
     <img />
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.js"></script>
@@ -45,6 +46,25 @@
           // 直接把base64字符串，赋值img.src，就可以预览图片了。
           $("img").attr("src", base64str);
         };
+      });
+
+      $("#submitBtn").click(function (event) {
+        // 阻止form默认事件
+        event.preventDefault();
+
+        var formData = new FormData();
+        formData.append("uploadImg", $("#file")[0].files[0]);
+
+        $.ajax({
+          url: "/upload",
+          type: "POST",
+          data: formData,
+          processData: false, // tell jQuery not to process the data
+          contentType: false, // tell jQuery not to set contentType
+          success: function (data) {
+            alert(data);
+          },
+        });
       });
     </script>
   </body>
