@@ -16,7 +16,7 @@
     <div id="app">
       <div>
         <input v-model="inputVal" @keyup.enter="add" />
-        <button @click="clear">清除</button>
+        <button v-if="completeNum>0" @click="clear">清除</button>
       </div>
       <ul>
         <li v-for="todo in todos">
@@ -34,12 +34,17 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
       /* 
+            先用jquery 展示一边
+            jq缺点：数据和页面需要手动关联，当遇到多对多关系时，非常容易出bug
+            vue: 数据页面自动关联
+
+
             1. input 输入回车后添加
             2. 点击删除 删除此条数据
             3. 选中状态 内容展示中划线
             4. 统计  完成数量/所有数量
             5. 全选按钮
-        
+            6. 清除按钮，清除已完成的，如果没有已完成的 删除按钮不展示
         */
       const app = new Vue({
         el: "#app",
@@ -62,10 +67,6 @@
           completeNum: function () {
             return this.todos.filter((item) => item.complete).length;
           },
-          //   selectAllValue: function () {
-          //     console.log(123, this.completeNum, this.total);
-          //     return this.completeNum === this.total;
-          //   },
           selectAllValue: {
             // 获取值时做处理
             get: function () {
@@ -83,7 +84,7 @@
         },
         methods: {
           del: function (id) {
-            console.log(id, typeof id, this.todos)
+            console.log(id, typeof id, this.todos);
             for (let i = 0; i < this.todos.length; ++i) {
               const todo = this.todos[i];
               if (todo.id === id) {
@@ -98,11 +99,11 @@
               value: this.inputVal,
               complete: false,
             });
-            console.log(this.todos)
+            console.log(this.todos);
             this.inputVal = "";
           },
-          clear: function() {
-            this.todos = this.todos.filter(todo => !todo.complete)
+          clear: function () {
+            this.todos = this.todos.filter((todo) => !todo.complete);
           },
           createId: function () {
             return parseInt(Math.random() * 10 * 6) + new Date().getTime();
