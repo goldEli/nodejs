@@ -14,7 +14,10 @@
   </head>
   <body>
     <div id="app">
-      <input v-model="inputVal" @keyup.enter="add" />
+      <div>
+        <input v-model="inputVal" @keyup.enter="add" />
+        <button @click="clear">清除</button>
+      </div>
       <ul>
         <li v-for="todo in todos">
           <input v-model="todo.complete" type="checkbox" />
@@ -24,12 +27,20 @@
       </ul>
       <div>
         <span>全选</span>
-        <input v-model="selectAllValue" @click="selectAll" type="checkbox" />
-        <span>{{status}}</span>
+        <input v-model="selectAllValue" type="checkbox" />
+        <span>{{completeNum}}/{{total}}</span>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
+      /* 
+            1. input 输入回车后添加
+            2. 点击删除 删除此条数据
+            3. 选中状态 内容展示中划线
+            4. 统计  完成数量/所有数量
+            5. 全选按钮
+        
+        */
       const app = new Vue({
         el: "#app",
         data: {
@@ -38,19 +49,41 @@
             { id: 2, value: "111", complete: false },
           ],
           inputVal: "",
-          selectAllValue: false,
         },
+        /* 
+            计算属性 
+            1. 方便维护
+            2. 提升性能，vue 提供了缓存,如果todos 不发生改变 不用重新计算
+        */
         computed: {
-          status: function () {
-            const count = this.todos.length;
-            const completeCount = this.todos.filter(
-              (item) => item.complete
-            ).length;
-            return `${completeCount}/${count}`;
+          total: function () {
+            return this.todos.length;
+          },
+          completeNum: function () {
+            return this.todos.filter((item) => item.complete).length;
+          },
+          //   selectAllValue: function () {
+          //     console.log(123, this.completeNum, this.total);
+          //     return this.completeNum === this.total;
+          //   },
+          selectAllValue: {
+            // 获取值时做处理
+            get: function () {
+              console.log("获取值");
+              return this.completeNum === this.total;
+            },
+            // 设置值时做处理
+            set: function (val) {
+              console.log("设置值", val);
+              this.todos.forEach((todo) => {
+                todo.complete = val;
+              });
+            },
           },
         },
         methods: {
           del: function (id) {
+            console.log(id, typeof id, this.todos)
             for (let i = 0; i < this.todos.length; ++i) {
               const todo = this.todos[i];
               if (todo.id === id) {
@@ -61,19 +94,18 @@
           },
           add: function () {
             this.todos.push({
-              id: 1111,
+              id: this.createId(),
               value: this.inputVal,
               complete: false,
             });
+            console.log(this.todos)
             this.inputVal = "";
           },
-          selectAll: function () {
-            for (let i = 0; i < this.todos.length; ++i) {
-              const todo = this.todos[i];
-              todo.complete = !this.selectAllValue;
-            }
-
-            this.selectAllValue = !this.selectAllValue;
+          clear: function() {
+            this.todos = this.todos.filter(todo => !todo.complete)
+          },
+          createId: function () {
+            return parseInt(Math.random() * 10 * 6) + new Date().getTime();
           },
         },
       });
