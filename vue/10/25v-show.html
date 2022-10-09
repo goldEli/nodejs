@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <p v-show="seen">现在你看到我了</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      /* 
+        v-show  v-if 区别
+        v-if  
+          1. 初始化如果为 false，则不会渲染
+          2. 切换时，直接删除/创建 dom
+          3. 切换频率低
+        v-show  
+          1. 初始化不管true 还是 false, 都会渲染
+          2. 切换时，display，修改css
+          3. 满足大部分场景
+
+        v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销  
+      */
+      const app = new Vue({
+        el: "#app",
+        data: {
+          seen: true,
+        },
+      });
+
+      setTimeout(() => {
+        app.seen = false;
+      }, 2000);
+    </script>
+  </body>
+</html>
