@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
+    <style>
+      span {
+        display: inline-block;
+        margin: 8px;
+        padding: 8px;
+      }
+      .active {
+        color: #999;
+      }
+      .success {
+        background-color: green;
+      }
+      .error {
+        background-color: red;
+      }
+      .warn {
+        background-color: orange;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- <div class="div1" :class="{active:isActive}"></div>
+        <div class="div1" :class="[onClass]"></div>
+        <div class="div1" :class="[isActive?'active':'']"></div> -->
+      <span v-bind:class="className">123</span>
+      <span :class="className">123</span>
+      <span class="error active">123</span>
+      <span :class="{error: hasError, active: isActive}">123</span>
+      <span class="[className]">123</span>
+      <span :class="[isActive ? 'active' : '', hasError ? 'error' : '']"
+        >123</span
+      >
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          className: "success",
+          hasError: true,
+          isActive: true,
+          classObj: { error: true, active: true },
+        },
+        methods: {},
+      });
+    </script>
+  </body>
+</html>
