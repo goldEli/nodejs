@@ -11,25 +11,29 @@
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.js"></script>
     <script>
       let data = {
-        
+        message: 123
       };
 
       /* 
         核心原理
         vue2  Object.defineProperty
+            1、只能监听一个属性 
+            2、只能监控data的获取和修改。增加、删除是无法监控。
+            3、如果属性值是数组或者json，重新赋值是可以监控到的，但是对数组的某一项的修改或者追加是无法监控的。
+            4、监听对象的时候深层的监听不到
         vue3  proxy
       */
-      let message = 123
-      Object.defineProperty(data, "message", {
+      let vm = {}
+      Object.defineProperty(vm, "message", {
         get: function () {
           console.log("访问message属性");
           //当获取值的时候触发的函数
-          return message;
+          return data.message;
         },
         set: function (val) {
           console.log("修改message属性", val);
           //当设置值的时候触发的函数,设置的新值通过参数value拿到
-          message = val
+          data.message = val
           render(data)
         },
       });
@@ -39,7 +43,8 @@
       }
       render(data);
       setTimeout(() => {
-        data.message = 111;
+        // data.message = 111;
+        vm.message = 111
       }, 1000);
     </script>
   </body>

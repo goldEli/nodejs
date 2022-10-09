@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div></div>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.js"></script>
+    <script>
+      let data = {
+        message: 123,
+      };
+
+      /* 
+        核心原理
+        vue2  Object.defineProperty
+            1、只能监听一个属性 
+            2、只能监控data的获取和修改。增加、删除是无法监控。
+            3、如果属性值是数组或者json，重新赋值是可以监控到的，但是对数组的某一项的修改或者追加是无法监控的。
+            4、监听对象的时候深层的监听不到
+        vue3  proxy
+           1、可以监控一个对象的所有属性
+           2、增删改查都可以监控到。
+           3、proxy也是无法做到深层监控。和defineProperty一样需要遍历再次监控
+           4、proxy的性能也会比defineProperty高很多。
+      */
+      let vm = new Proxy(data, {
+        get(target, name) {
+          console.log("有人获取了", target, name);
+          return target[name];
+        },
+        set(target, name, value) {
+          console.log("有人设置了", target, name, value);
+          target[name] = value;
+          render(target);
+        },
+        deleteProperty() {
+          console.log("有人删除乐");
+        },
+      });
+
+      function render(data) {
+        $("div").text(data.message);
+      }
+      render(vm);
+      setTimeout(() => {
+        // data.message = 111;
+        vm.message = 111;
+      }, 1000);
+    </script>
+  </body>
+</html>
