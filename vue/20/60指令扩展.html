@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" />
+      <p>{{msg}}---bbbb</p>
+      <hr />
+      <p v-text="msg">bbbb</p>
+      <hr />
+      <p v-text="data1"></p>
+      <p v-html="data1"></p>
+      <hr />
+      <span v-cloak>{{msg}}</span>
+      <hr />
+      <input type="text" v-model="msg" /> <span v-once>{{msg}}</span>
+    </div>
+    <script>
+      /* 
+        v-if v-for v-show v-model @click @keyup
+    */
+      new Vue({
+        el: "#app",
+        data: {
+          msg: "aaa",
+          data1: "<i>我是斜体</i>",
+        },
+      });
+    </script>
+  </body>
+</html>
