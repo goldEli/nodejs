@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input v-model="msg1" />
+      <input v-model="msg" />
+      <!-- 
+        当 msg 发生改变
+        msg.split("").reverse().join("")
+        但是当 msg1 发生改变, 也会重新计算
+        msg.split("").reverse().join("")
+
+        所以为了解决这个问题 computed 计算属性
+        1. 代码方便维护  逻辑写到html模板 
+        2. 缓存机制 即 msg 改变才会计算
+     -->
+      <p>{{reverseMessage}}</p>
+    </div>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          msg1: "111",
+          msg: "hello",
+        },
+        computed: {
+          reverseMessage: function () {
+            console.log("重新计算");
+            // `this` 指向 app 实例
+            return this.msg.split("").reverse().join("");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

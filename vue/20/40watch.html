@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <table border="1">
+        <tr>
+          <th>商品</th>
+          <th>数量</th>
+          <th>单价</th>
+          <th>小计</th>
+          <th>操作</th>
+        </tr>
+        <tr v-for="(v,i) in list">
+          <td>{{v.name}}</td>
+          <td>
+            <button @click="subtract(i)">-</button>
+            <input min="1" type="number" v-model="v.num" />
+            <button @click="add(i)">+</button>
+          </td>
+          <td>{{v.price}}</td>
+          <td>{{v.price*v.num}}</td>
+          <td>
+            <button @click="delListItem(i)">删除</button>
+          </td>
+        </tr>
+        <tr>
+          <td>总计： {{sum}}</td>
+        </tr>
+      </table>
+    </div>
+    <script>
+      /* 
+      当需要在数据变化时执行异步或开销较大的操作时
+      1. 接口请求
+      2. 防抖（性能优化）
+      */
+      let timer = null
+      const app = new Vue({
+        el: "#app",
+        data: {
+          sum: 0,
+          list: [
+            { id: 1, name: "衣服", num: 1, price: 100 },
+            { id: 2, name: "裤子", num: 3, price: 200 },
+            { id: 3, name: "鞋", num: 3, price: 300 },
+            { id: 4, name: "裙子", num: 4, price: 150 },
+            { id: 5, name: "袜子", num: 5, price: 10 },
+          ],
+        },
+        methods: {
+          add: function (index) {
+            this.list[index].num++;
+          },
+          subtract: function (index) {
+            this.list[index].num--;
+          },
+          delListItem: function (index) {
+            this.list.splice(index, 1);
+          },
+        },
+        /* 
+            我快速点击5次 只有最后一次计算对我有用
+            前面4次点击无意义
+
+            如果计算量很大的话，快速点击会非常的卡
+
+            用watch解决这个问题
+
+            
+        */
+        // computed: {
+        //   sum: function () {
+        //     console.log("computed")
+        //     let total = 0;
+        //     this.list.forEach((element) => {
+        //       total += element.num * element.price;
+        //     });
+        //     return total;
+        //   },
+        // },
+        /* 
+            watch:{
+                要监听的数据：function(){
+                    当数据发生变化的时候执行
+                },
+                监听的数据:{
+                    handler:function(){
+                        //当数据发生变化的时候执行
+                    },
+                    deep: true,
+                    immediate: true,
+                }
+            }
+            1、默认只能监听简单数据。类似数组和json，里面的数据检测不到变化
+            [1,2,3,4]
+            [{a:1}, {b:1}]
+        */
+        watch: {
+          list: {
+            handler: function () {
+              //当数据发生变化的时候执行
+              /* 
+                防止快读点击 
+                加延迟500ms
+                如果500ms未结束，又去改变 把上次的定时器清除
+                这样只执行最后一次
+                专业术语叫做防抖
+              */
+              clearTimeout(timer)
+              timer = setTimeout(() => {
+                console.log("list 改变了");
+                let total = 0;
+                this.list.forEach((element) => {
+                  total += element.num * element.price;
+                });
+                this.sum = total;
+              }, 500);
+            },
+            deep: true,
+            immediate: true, // 监听开始就调用
+          },
+          //   list: function () {
+          //     console.log("list 改变了");
+          //   },
+        },
+      });
+    </script>
+  </body>
+</html>
