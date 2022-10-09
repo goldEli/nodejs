@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p :key="item.id" v-for="item in list">{{item.text}}</p>
+    </div>
+    <script>
+        /* 
+            v-for 为什么要加key
+            1. key 必须有唯一性, 一般用后端传的id，index 不具有唯一性
+            2. 提升修改效率 （diff算法）
+                2.1 如果没有key，列表发生改变，整个列表对应的dom都会改变
+                2.2 如果有key，就可以知道哪条数据对应的dom改变了，只做针对性的改变 
+        */
+        const app = new Vue({
+            el: "#app",
+            data: {
+                list: [
+                    {id: 1, text: "111"},
+                    {id: 2, text: "222"},
+                    {id: 3, text: "333"},
+                    {id: 4, text: "444"},
+                ]
+            }
+        })
+    </script>
+</body>
+</html>
