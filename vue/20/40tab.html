@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
+    <style>
+      .tabs-box {
+        display: flex;
+      }
+      .tabs-box > span {
+        padding: 8px 20px;
+        background-color: gray;
+      }
+      .tabs-box > .active {
+        background-color: black;
+        color: #fff;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="tabs-box">
+        <span @click="onChange(index)" v-for="tab,index in tabs" :class="{active: activeIndex === index}"
+          >{{tab.text}}</span
+        >
+      </div>
+      <div>{{content}}</div>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          tabs: [
+            { text: "按钮1", content: "内容1" },
+            { text: "按钮2", content: "内容2" },
+            { text: "按钮3", content: "内容3" },
+          ],
+          activeIndex: 0,
+        },
+        computed: {
+            content: function() {
+                return this.tabs[this.activeIndex].content
+            }
+        },
+        methods: {
+          onChange: function (index) {
+            this.activeIndex = index;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
