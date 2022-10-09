@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div></div>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.js"></script>
+    <script>
+      let data = {
+        
+      };
+
+      /* 
+        核心原理
+        vue2  Object.defineProperty
+        vue3  proxy
+      */
+      let message = 123
+      Object.defineProperty(data, "message", {
+        get: function () {
+          console.log("访问message属性");
+          //当获取值的时候触发的函数
+          return message;
+        },
+        set: function (val) {
+          console.log("修改message属性", val);
+          //当设置值的时候触发的函数,设置的新值通过参数value拿到
+          message = val
+          render(data)
+        },
+      });
+
+      function render(data) {
+        $("div").text(data.message);
+      }
+      render(data);
+      setTimeout(() => {
+        data.message = 111;
+      }, 1000);
+    </script>
+  </body>
+</html>
