@@ -59,7 +59,7 @@
                 7、销毁前
                 8、销毁后
         */
-      new Vue({
+      const app = new Vue({
         el: "#app",
         data: { msg: "aaa" },
         methods: {},
@@ -109,19 +109,23 @@
           //   setTimeout(() => {
           //     this.$destroy();
           //     console.log("已经销毁");
-          //   }, 5000);
+          //   }, 0);
         },
-        beforeUnmount: function () {
+        beforeDestroy: function () {
           console.log("beforeDestroy: 在一个组件实例被卸载之前调用。");
         },
-        unmounted: function () {
-          console.log("unmounted: 在一个组件实例被卸载之后调用。");
+        destroyed: function () {
+          console.log("destroyed: 在一个组件实例被卸载之后调用。");
         },
       });
       /* 
             mounted    请求数据
-            unmounted  销毁定时器 或者保存数据
+            destroyed  销毁定时器 或者保存数据
         */
+      setTimeout(() => {
+        console.log("已经销毁");
+        app.$destroy();
+      }, 2000);
     </script>
   </body>
 </html>
