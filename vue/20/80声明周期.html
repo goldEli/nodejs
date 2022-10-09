@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
+    <style>
+      #box {
+        width: 100px;
+        height: 100px;
+        background: pink;
+      }
+      .div1 {
+        width: 300px;
+        height: 300px;
+        background: red;
+      }
+      #div2 {
+        width: 200px;
+        height: 200px;
+        background: blue;
+      }
+      #div3 {
+        width: 100px;
+        height: 100px;
+        background: green;
+      }
+      .active {
+        background: red;
+      }
+      #app div {
+      }
+      #app .on {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <input type="text" v-model="msg" />
+      <span>{{msg}}</span>
+    </div>
+    <script>
+      /* 
+            生命周期钩子函数
+
+            生命周期 :出生到死亡，  初始化到销毁
+            生命周期钩子函数  在生命中固定阶段，执行的函数。
+            都有哪些阶段
+                1、创建前
+                2、创建后
+                3、挂载前
+                4、挂载后
+                5、数据更新前
+                6、数据更新后
+                7、销毁前
+                8、销毁后
+        */
+      new Vue({
+        el: "#app",
+        data: { msg: "aaa" },
+        methods: {},
+        computed: {},
+        watch: {},
+        beforeCreate: function () {
+          console.log(
+            "beforeCreate: 在组件实例初始化完成之后立即调用。",
+            this.$el,
+            this.$data
+          );
+        },
+        created: function () {
+          console.log(
+            "created: 在组件实例处理完所有与状态相关的选项后调用。",
+            this.$el,
+            this.$data
+          );
+        },
+        beforeMount: function () {
+          console.log(
+            "beforeMount: 在组件被挂载之前调用。",
+            this.$el,
+            this.$data
+          );
+        },
+        mounted: function () {
+          //数据已经替换了
+          console.log("mounted: 在组件被挂载之后调用。", this.$el, this.$data);
+        },
+        beforeUpdate: function () {
+          console.log(
+            "beforeUpdate: 在组件即将因为一个响应式状态变更而更新其 DOM 树之前调用。",
+            this.msg,
+            this.$el,
+            this.$data
+          );
+          //alert(this.msg)
+        },
+        updated: function () {
+          console.log(
+            "updated: 在组件因为一个响应式状态变更而更新其 DOM 树之后调用。",
+            this.msg,
+            this.$el,
+            this.$data
+          );
+          //   setTimeout(() => {
+          //     this.$destroy();
+          //     console.log("已经销毁");
+          //   }, 5000);
+        },
+        beforeUnmount: function () {
+          console.log("beforeDestroy: 在一个组件实例被卸载之前调用。");
+        },
+        unmounted: function () {
+          console.log("unmounted: 在一个组件实例被卸载之后调用。");
+        },
+      });
+      /* 
+            mounted    请求数据
+            unmounted  销毁定时器 或者保存数据
+        */
+    </script>
+  </body>
+</html>
