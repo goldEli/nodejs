@@ -30,6 +30,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### NOTE
 
+> https://v2.cn.vuejs.org/v2/guide/components.html
+
 #### 开发环境为什么要启动一个服务器？
 
 1. 实时编译 实时更新页面
@@ -39,6 +41,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```
 npm run build
 ```
+
 生成 dist 文件 放到服务器
 
 #### 组件化
@@ -78,4 +81,3 @@ B 组件调用了 c
 
 所以组件调用时需要保证数据是独立的
 每次调用组件，执行函数返回 data
-
