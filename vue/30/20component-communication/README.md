@@ -64,3 +64,9 @@ props: {
 组件加 ref = "kkk"
 
 this.$refs.kkk
+
+### 动态组件
+
+:is 传入组件名
+
+保持失活的组件状态 keep-live
