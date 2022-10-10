@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <p>{{a.b}}</p>
+      <p>{{a.c}}</p>
+      <ol>
+        <li v-for="v in list">{{v}}</li>
+      </ol>
+    </div>
+    <script>
+      /*
+        https://v2.cn.vuejs.org/v2/guide/reactivity.html
+        由于js限制当值vue2无法检测数据和对象变化
+    */
+      new Vue({
+        el: "#app",
+        data: {
+          a: {
+            b: "123",
+            // c: "",
+          },
+          list: [1, 2, 3, 4, 5],
+        },
+        mounted() {
+          /* 
+            不建议这么写 最好事先定义好
+          */
+          // this.a.c = '123'
+          //   this.$set(this.a, "c", "123");
+
+          //   this.list[2] = 333;
+          this.$set(this.list, 2, 333);
+        },
+      });
+    </script>
+  </body>
+</html>
