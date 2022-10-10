@@ -8,7 +8,8 @@
       <button-counter></button-counter>
       <button-counter></button-counter>
     </my-content>
-    <test-ref></test-ref> 
+    <test-ref></test-ref>
+    <my-tabs></my-tabs>
   </div>
 </template>
 
@@ -17,13 +18,15 @@ import ButtonCounter from "./components/ButtonCounter.vue";
 import MyHeader from "./components/MyHeader.vue";
 import MyContent from "./components/MyContent.vue";
 import TestRef from "./components/TestRef.vue";
+import MyTabs from "./components/MyTabs.vue";
 export default {
   name: "App",
   components: {
     ButtonCounter,
     MyHeader,
     MyContent,
-    TestRef
+    TestRef,
+    MyTabs
   }
 };
 </script>
