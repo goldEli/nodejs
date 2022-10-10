@@ -1,6 +1,7 @@
 <template>
   <div class="box">
     <my-list :list="list"></my-list>
+    <slot></slot>
   </div>
 </template>
 <script>

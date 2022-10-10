@@ -1,12 +1,13 @@
 <template>
   <div id="app">
     <my-header></my-header>
-    <button-counter></button-counter>
-    <button-counter></button-counter>
-    <button-counter></button-counter>
-    <button-counter></button-counter>
-    <button-counter></button-counter>
-    <my-content></my-content>
+    <my-content>
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+    </my-content>
   </div>
 </template>
 
