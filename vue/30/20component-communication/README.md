@@ -55,3 +55,12 @@ props: {
 <slot />
 ```
 
+### ref
+
+儿子访问父亲数据或者方法  this.$parent.xxxx
+
+父亲访问儿子数据或者方法  
+
+组件加 ref = "kkk"
+
+this.$refs.kkk
