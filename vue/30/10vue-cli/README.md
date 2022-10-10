@@ -34,6 +34,13 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 1. 实时编译 实时更新页面
 
+#### 开发完成后
+
+```
+npm run build
+```
+生成 dist 文件 放到服务器
+
 #### 组件化
 
 1. 把页面由一个一个由组件的
@@ -49,6 +56,15 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 #### data 为什么是函数？
 
+```
+Vue.component('my-component', {
+  template: '<div>OK</div>',
+  data() {
+    return {} // 返回一个唯一的对象，不要和其他组件共用一个对象进行返回
+  },
+})
+```
+
 组件复用时，避免数据污染
 
 A
@@ -63,9 +79,3 @@ B 组件调用了 c
 所以组件调用时需要保证数据是独立的
 每次调用组件，执行函数返回 data
 
-#### 开发完成后
-
-```
-npm run build
-```
-生成 dist 文件 放到服务器
