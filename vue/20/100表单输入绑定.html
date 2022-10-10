@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <form>
+        <div>
+          <label>用户: </label>
+          <input v-model.trim="user" placeholder="请输入用户" />
+        </div>
+        <div>
+          <label>自我介绍: </label>
+          <textarea
+            v-model.lazy="resume"
+            placeholder="add multiple lines"
+          ></textarea>
+        </div>
+        <div>
+          <label>选择好友: </label>
+          <input
+            type="checkbox"
+            id="jack"
+            value="Jack"
+            v-model="checkedNames"
+          />
+          <label for="jack">Jack</label>
+          <input
+            type="checkbox"
+            id="john"
+            value="John"
+            v-model="checkedNames"
+          />
+          <label for="john">John</label>
+          <input
+            type="checkbox"
+            id="mike"
+            value="Mike"
+            v-model="checkedNames"
+          />
+          <label for="mike">Mike</label>
+        </div>
+        <div>
+          <label>性别:</label>
+          <input type="radio" id="male" value="male" v-model="gender" />
+          <label for="male">One</label>
+          <input type="radio" id="female" value="female" v-model="gender" />
+          <label for="female">Two</label>
+        </div>
+        <div>
+          <label>城市</label>
+          <select v-model="city">
+            <option disabled value="">请选择</option>
+            <option value="0">成都</option>
+            <option value="1">重庆</option>
+            <option value="2">西安</option>
+          </select>
+        </div>
+        <div>
+          <!-- 
+            true-value="yes"
+            false-value="no"
+           -->
+          <input type="checkbox" v-model="isRemember" />
+          <label>《同意用户协议》</label>
+        </div>
+        <div>
+            <label>年龄：</label>
+            <input v-model.number="age" />
+        </div>
+        <div>
+          <button @click="submit">提交</button>
+        </div>
+      </form>
+      <div>{{city}}</div>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          user: "",
+          resume: "",
+          checkedNames: [],
+          gender: "",
+          city: "",
+          isRemember: true,
+          age: undefined,
+        },
+        methods: {
+          submit: function () {
+            event.preventDefault();
+            console.log(this.$data);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
