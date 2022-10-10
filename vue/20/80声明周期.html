@@ -92,7 +92,7 @@
         },
         beforeUpdate: function () {
           console.log(
-            "beforeUpdate: 在组件即将因为一个响应式状态变更而更新其 DOM 树之前调用。",
+            "beforeUpdate: 在数据发生改变后，DOM 被更新之前被调用",
             this.msg,
             this.$el,
             this.$data
@@ -101,7 +101,7 @@
         },
         updated: function () {
           console.log(
-            "updated: 在组件因为一个响应式状态变更而更新其 DOM 树之后调用。",
+            "updated: 在数据更改导致的虚拟 DOM 重新渲染和更新完毕之后被调用。",
             this.msg,
             this.$el,
             this.$data
