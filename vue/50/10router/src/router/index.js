@@ -32,6 +32,39 @@ const router = new VueRouter({
       component: () =>
         import(/* webpackChunkName: "ApiView" */ "../views/ApiView.vue"),
     },
+    {
+      path: "/user",
+      name: "user",
+      /* 
+      懒加载 代码分割，当该路由被加载时再请求js文件
+      */
+      component: () =>
+        import(/* webpackChunkName: "UserView" */ "../views/UserView.vue"),
+      children: [
+        {
+          path: "profile",
+          name: "profile",
+          /* 
+      懒加载 代码分割，当该路由被加载时再请求js文件
+      */
+          component: () =>
+            import(
+              /* webpackChunkName: "UserProfileView" */ "../views/UserProfileView.vue"
+            ),
+        },
+        {
+          path: "setting",
+          name: "setting",
+          /* 
+      懒加载 代码分割，当该路由被加载时再请求js文件
+      */
+          component: () =>
+            import(
+              /* webpackChunkName: "UserSettingView" */ "../views/UserSettingView.vue"
+            ),
+        },
+      ],
+    },
   ],
 });
 
