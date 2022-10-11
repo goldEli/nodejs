@@ -1,7 +1,0 @@
-{
-  "data": [
-    { "id": 1, "company": "alibaba", "contract": "张飞", "country": "usa" },
-    { "id": 2, "company": "tencent", "contract": "曹操", "country": "china" },
-    { "id": 3, "company": "meituan", "contract": "周瑜", "country": "japan" }
-  ]
-}

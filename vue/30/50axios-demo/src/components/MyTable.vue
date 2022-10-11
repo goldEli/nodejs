@@ -25,13 +25,12 @@ export default {
     };
   },
   mounted: function () {
-    // 向给定ID的用户发起请求
     axios
-      .get("/src/assets/data.json")
-      .then( (response) => {
+      .get("/api/test")
+      .then((response) => {
         // 处理成功情况
         console.log(response);
-        this.list = response.data.data
+        this.list = response.data.data;
       })
       .catch(function (error) {
         // 处理错误情况

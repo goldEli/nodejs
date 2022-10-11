@@ -18,4 +18,17 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+  // 反向代理
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:8888/",
+        changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, ""),
+        pathRewrite: {
+          "^/api": "", // 这个是定义要访问的路径，名字随便写
+        },
+      },
+    },
+  },
 });
