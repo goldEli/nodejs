@@ -9,7 +9,7 @@
 export default {
     methods: {
         jumpToAPI: function() {
-            this.$router.push("/api")
+            this.$router.push("/api?id=123")
             // 返回上一页
         },
         goBack: function() {
