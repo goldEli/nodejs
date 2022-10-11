@@ -11,6 +11,11 @@ app.get("/api/test", function (req, res) {
   });
 });
 
+
+app.get("/api/testAcross", function (req, res) {
+  res.send(`getData(123)`);
+});
+
 // 监听8888端口
 app.listen(8888, () => {
   console.log("服务启动！");

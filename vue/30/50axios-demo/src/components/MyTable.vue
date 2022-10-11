@@ -25,6 +25,7 @@ export default {
     };
   },
   mounted: function () {
+    console.log("组件获取跨域数据", window.acrossData)
     axios
       .get("/api/test")
       .then((response) => {

@@ -51,3 +51,15 @@ npm run lint --list
 ```
 npm install axios
 ```
+
+#### 跨域问题
+
+开发时，前端开发服务器 与 后台服务器域名不一致 导致跨域问题
+
+- vite 配置 反向代理
+
+- jsonp
+    - script 等标签 src 不会收到跨域影响
+    - 全局定义一个 getData(data) {window.data = data}
+    - 后端返回 getData(123)，此时 getData 会被执行，数据就会存入 window.data
+    - 通过 window.data 就可以获取跨域返回的数据
