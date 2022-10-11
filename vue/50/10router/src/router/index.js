@@ -2,7 +2,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import ApiView from "../views/ApiView.vue";
+// import ApiView from "../views/ApiView.vue";
 import GuideView from "../views/GuideView.vue";
 
 Vue.use(VueRouter);
@@ -25,7 +25,12 @@ const router = new VueRouter({
     {
       path: "/api",
       name: "api",
-      component: ApiView,
+      // component: ApiView,
+      /* 
+      懒加载 代码分割，当该路由被加载时再请求js文件
+      */
+      component: () =>
+        import(/* webpackChunkName: "ApiView" */ "../views/ApiView.vue"),
     },
   ],
 });
