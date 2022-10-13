@@ -26,6 +26,7 @@ headers: {
 
 
 */
+axios.defaults.baseURL = "/m1/1742201-0-default/"
 
 //当所有axios发送请求的时候进行拦截
 axios.interceptors.request.use(
