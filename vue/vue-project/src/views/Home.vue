@@ -55,6 +55,10 @@ export default {
         {
           title: "公告管理",
           link: "/home/notice"
+        },
+        {
+          title: "管理员管理",
+          link: "/home/admin"
         }
       ]
     };
