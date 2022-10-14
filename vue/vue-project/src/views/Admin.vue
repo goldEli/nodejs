@@ -49,57 +49,7 @@ export default {
       formInline: {
         name: ""
       },
-      tableData: [
-        {
-          id: 1,
-          name: "1号管理员",
-          userId: 201,
-          password: 201,
-          type: 2
-        },
-        {
-          id: 10,
-          name: "7号管理员",
-          userId: 207,
-          password: 207,
-          type: 2
-        },
-        {
-          id: 2,
-          name: "2号管理员",
-          userId: 202,
-          password: 202,
-          type: 1
-        },
-        {
-          id: 3,
-          name: "3号管理员",
-          userId: 203,
-          password: 203,
-          type: 1
-        },
-        {
-          id: 4,
-          name: "4号管理员",
-          userId: 204,
-          password: 204,
-          type: 1
-        },
-        {
-          id: 5,
-          name: "5号管理员",
-          userId: 205,
-          password: 205,
-          type: 1
-        },
-        {
-          id: 12,
-          name: "6号管理员",
-          userId: 206,
-          password: 206,
-          type: 1
-        }
-      ],
+      tableData: [],
       currentPage: 1,
       pageSize: 5,
       searchName: ""
@@ -122,7 +72,20 @@ export default {
       return this.tableData.length;
     }
   },
+  mounted() {
+    console.log(123);
+    this.getData();
+  },
   methods: {
+    getData() {
+      this.$http({
+        method: "post",
+        url: "/admin/getadmin"
+      }).then(res => {
+        console.log(res);
+        this.tableData = res.data.data;
+      });
+    },
     onSearch() {
       this.currentPage = 1;
       this.searchName = this.formInline.name;

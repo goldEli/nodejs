@@ -26,7 +26,7 @@ headers: {
 
 
 */
-axios.defaults.baseURL = "/m1/1742201-0-default/"
+axios.defaults.baseURL = "/m1/1742201-0-default/";
 
 //当所有axios发送请求的时候进行拦截
 axios.interceptors.request.use(
@@ -58,9 +58,9 @@ axios.interceptors.response.use(
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     //token失效了
-    if (error.response.status == 401) {
+    console.error(error);
+    if (error.response && error.response.status == 401) {
       sessionStorage.removeItem("token");
-      alert("请重新登录");
       window.location.href = "/";
     }
     return Promise.reject(error);

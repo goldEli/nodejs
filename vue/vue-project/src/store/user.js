@@ -27,7 +27,7 @@ const user = {
       console.log(context, this.$http);
       // 异步请求后端数据
       http({
-        type: "get",
+        method: "get",
         url: "/login/getuser",
         params,
       }).then((res) => {
