@@ -3,7 +3,7 @@
     <el-header>
       <div>宿舍管理系统</div>
       <div>
-        <b>张三</b>
+        <b>{{username}}</b>
         <i class="el-icon-close"></i>
       </div>
     </el-header>
@@ -62,6 +62,11 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    username: function() {
+      return this.$store.state.user.userInfo.name
+    }
   },
   methods: {
     handleOpen(key, keyPath) {
