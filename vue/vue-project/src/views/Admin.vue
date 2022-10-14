@@ -52,7 +52,7 @@
           <el-input v-model="addData.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="类型" :label-width="formLabelWidth">
-          <el-select v-model="addData.region" placeholder="选择管理员类型">
+          <el-select v-model="addData.type" placeholder="选择管理员类型">
             <el-option label="超管" value="1"></el-option>
             <el-option label="宿管" value="2"></el-option>
           </el-select>
@@ -61,6 +61,30 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click="addDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="onAdd">确 定</el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog title="编辑" :visible.sync="editDialogVisible">
+      <el-form :model="editData">
+        <el-form-item label="姓名" :label-width="formLabelWidth">
+          <el-input v-model="editData.name" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="账号" :label-width="formLabelWidth">
+          <el-input v-model="editData.userId" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" :label-width="formLabelWidth">
+          <el-input v-model="editData.password" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="类型" :label-width="formLabelWidth">
+          <el-select v-model="editData.type" placeholder="选择管理员类型">
+            <el-option label="超管" value="1"></el-option>
+            <el-option label="宿管" value="2"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="onSaveEdit">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -78,7 +102,15 @@ export default {
       pageSize: 5,
       searchName: "",
       addDialogVisible: false,
+      editDialogVisible: false,
       addData: {
+        name: "",
+        userId: "",
+        password: "",
+        type: ""
+      },
+      editData: {
+        id: "",
         name: "",
         userId: "",
         password: "",
@@ -141,7 +173,29 @@ export default {
       });
     },
     handleEdit(index, row) {
-      console.log(index, row);
+      console.log(row);
+      this.editData = {...row};
+      this.editData.type = row.type + "";
+      this.editDialogVisible = true;
+    },
+    onSaveEdit() {
+      const data = {
+        id: this.editData.id,
+        name: this.editData.name,
+        password: this.editData.password,
+        type: parseInt(this.editData.type)
+      };
+      this.$http({
+        url: "/admin/updateadmin",
+        data,
+        method: "post"
+      }).then(res => {
+        if (res.data.code == 200) {
+          this.$message("修改成功", "success");
+          this.editDialogVisible = false;
+          this.getData();
+        }
+      });
     },
     handleDelete(index, row) {
       console.log(index, row);
