@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Message } from "element-ui";
 
 /* 
 配置 axios
@@ -60,6 +61,7 @@ axios.interceptors.response.use(
     //token失效了
     console.error(error);
     if (error.response && error.response.status == 401) {
+      Message.error("登录过期");
       sessionStorage.removeItem("token");
       window.location.href = "/";
     }
