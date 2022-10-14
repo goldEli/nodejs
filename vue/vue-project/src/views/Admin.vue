@@ -143,7 +143,7 @@ export default {
   methods: {
     getData() {
       this.$http({
-        method: "post",
+        method: "get",
         url: "/admin/getadmin"
       }).then(res => {
         console.log(res);

@@ -21,13 +21,18 @@ export default defineConfig({
   server: {
     // http://127.0.0.1:4523/m1/1742201-0-default/login/getuser
     proxy: {
+      // "/m1/1742201-0-default": {
+      //   target: "http://localhost:4523",
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     "^/m1/1742201-0-default": "",
+      //   },
+      //   // rewrite: (path) => path.replace(/^\/m1\/1742201-0-default/, ""),
+      // },
       "/m1/1742201-0-default": {
-        target: "http://localhost:4523",
+        target: "http://localhost:3000",
         changeOrigin: true,
-        pathRewrite: {
-          "^/m1/1742201-0-default": "",
-        },
-        // rewrite: (path) => path.replace(/^\/m1\/1742201-0-default/, ""),
+        rewrite: (path) => path.replace(/\/m1\/1742201-0-default/, ""),
       },
     },
   },
