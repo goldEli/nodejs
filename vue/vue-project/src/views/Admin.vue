@@ -98,6 +98,23 @@ export default {
     },
     handleDelete(index, row) {
       console.log(index, row);
+      this.$alert("您确定要删除吗", {
+        title: "提示",
+        callback: () => {
+          // 用户确定后执行里面的内容
+          this.$http({
+            url: "/admin/deladmin",
+            method: "post",
+            data: {
+              id: row.id
+            }
+          }).then(res => {
+            if (res.data.code == "200") {
+              this.getData();
+            }
+          });
+        }
+      });
     },
     currentChange(currentPage) {
       this.currentPage = currentPage;
