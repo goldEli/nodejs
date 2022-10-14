@@ -9,7 +9,7 @@
           <el-button type="primary" @click="onSearch">查询</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="success" @click="onAdd">添加</el-button>
+          <el-button type="success" @click="addDialogVisible = true">添加</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -39,6 +39,30 @@
         @current-change="currentChange"
       ></el-pagination>
     </div>
+
+    <el-dialog title="添加" :visible.sync="addDialogVisible">
+      <el-form :model="addData">
+        <el-form-item label="姓名" :label-width="formLabelWidth">
+          <el-input v-model="addData.name" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="账号" :label-width="formLabelWidth">
+          <el-input v-model="addData.userId" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" :label-width="formLabelWidth">
+          <el-input v-model="addData.password" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="类型" :label-width="formLabelWidth">
+          <el-select v-model="addData.region" placeholder="选择管理员类型">
+            <el-option label="超管" value="1"></el-option>
+            <el-option label="宿管" value="2"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="addDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="onAdd">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -52,7 +76,15 @@ export default {
       tableData: [],
       currentPage: 1,
       pageSize: 5,
-      searchName: ""
+      searchName: "",
+      addDialogVisible: false,
+      addData: {
+        name: "",
+        userId: "",
+        password: "",
+        type: ""
+      },
+      formLabelWidth: "120px"
     };
   },
   computed: {
@@ -92,6 +124,21 @@ export default {
     },
     onAdd() {
       console.log("add!");
+      this.$http({
+        url: "/admin/addadmin",
+        method: "post",
+        data: this.addData
+      }).then(res => {
+        console.log(res);
+        if (res.data.code == 200) {
+          this.$message({
+            message: "添加成功",
+            type: "success"
+          });
+          this.addDialogVisible = false;
+          this.getData();
+        }
+      });
     },
     handleEdit(index, row) {
       console.log(index, row);
