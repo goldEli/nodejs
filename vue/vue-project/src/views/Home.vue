@@ -4,7 +4,7 @@
       <div>宿舍管理系统</div>
       <div>
         <b>{{username}}</b>
-        <i class="el-icon-close"></i>
+        <i @click="onExit" class="el-icon-close"></i>
       </div>
     </el-header>
     <el-container>
@@ -65,7 +65,7 @@ export default {
   },
   computed: {
     username: function() {
-      return this.$store.state.user.userInfo.name
+      return this.$store.state.user.userInfo.name;
     }
   },
   methods: {
@@ -74,6 +74,13 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
+    },
+    onExit() {
+      // 调后端接口
+
+      // 删除sessionstorage
+      sessionStorage.removeItem("token");
+      this.$router.push("/login");
     }
   }
 };

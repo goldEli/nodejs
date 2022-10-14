@@ -50,12 +50,13 @@ const router = new VueRouter({
 });
 //全局前置导航守卫
 router.beforeEach((to, from, next) => {
+  const token = sessionStorage.getItem("token")
   // console.log(to);
   // // 检查用户是否登录
-  // if (to.path !== "/login") {
-  //   next({ name: "login" });
-  //   return;
-  // }
+  if (to.path !== "/login" && !token) {
+    next({ name: "login" });
+    return;
+  }
   // // 继续跳转
   next();
 });
