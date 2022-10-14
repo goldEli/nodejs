@@ -5,6 +5,7 @@ import router from "./router";
 import ElementUI from "element-ui";
 import ECharts from "vue-echarts";
 import http from "./utils/http";
+import store from "./store";
 
 import "element-ui/lib/theme-chalk/index.css";
 import "./assets/main.css";
@@ -16,6 +17,7 @@ Vue.prototype.$http = http;
 
 Vue.use(ElementUI);
 new Vue({
+  store,
   router,
   render: (h) => h(App),
 }).$mount("#app");

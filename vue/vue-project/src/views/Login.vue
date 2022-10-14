@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -46,15 +45,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          // this.$http({
-          axios({
-            type: "get",
-            url: "/login/getuser",
-
-            params: this.ruleForm
-          }).then(res => {
-            console.log("登录返回的数据");
-          });
+          this.$store.dispatch("user/getUserInfo", this.ruleForm);
         } else {
           console.log("error submit!!");
           return false;
