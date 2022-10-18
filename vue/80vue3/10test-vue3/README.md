@@ -1,6 +1,8 @@
 # 10test-vue3
 
-This template should help get you started developing with Vue 3 in Vite.
+vue3  未来了趋势 新项目基本上都会使用vue3
+vue3 基本上兼容 vue2 写法
+官方也建议直接学习vue3
 
 ### 生命周期
 
