@@ -93,13 +93,18 @@ const selectAllValue = computed({
       <input v-model="inputVal" @keyup.enter="add" />
       <button v-if="completeNum > 0" @click="clear">清除</button>
     </div>
-    <ul>
-      <li v-for="todo in data.todos" :key="todo.id">
-        <input v-model="todo.complete" type="checkbox" />
-        <span :class="{ del: todo.complete }">{{ todo.value }}</span>
-        <button @click="del(todo.id)">删除</button>
-      </li>
-    </ul>
+    <div>
+      <ul v-if="data.todos.length > 0">
+        <li v-for="todo in data.todos" :key="todo.id">
+          <input v-model="todo.complete" type="checkbox" />
+          <span :class="{ del: todo.complete }">{{ todo.value }}</span>
+          <button @click="del(todo.id)">删除</button>
+        </li>
+      </ul>
+      <div v-else>
+        没有数据
+      </div>
+    </div>
     <div>
       <span>全选</span>
       <input v-model="selectAllValue" type="checkbox" />
