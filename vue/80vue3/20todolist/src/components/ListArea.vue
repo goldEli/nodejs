@@ -1,21 +1,23 @@
 <template>
   <div class="box">
-    <ul>
-      <li v-for="item in list">
+    <ul v-if="todoListStore.todoList.length>0">
+      <li v-for="item in todoListStore.todoList">
         <input v-model="item.complete" type="checkbox" />
-        <span>item.value</span>
-        <button>delete</button>
+        <span>{{item.value}}</span>
+        <button @click="todoListStore.del(item.id)">delete</button>
       </li>
     </ul>
+    <div v-else>无数据</div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
-const list = reactive([
-  { id: 1, value: "123", complete: true },
-  { id: 2, value: "111", complete: false },
-]);
+// import { useCounterStore } from "../stores/counter";
+import { useTodoListStore } from "../stores/todoList";
+
+// const store = useCounterStore();
+const todoListStore = useTodoListStore()
+
 </script>
 
 <style scoped lang="less">
