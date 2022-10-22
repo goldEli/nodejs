@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul></ul>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.js"></script>
+    <script>
+      const ul = document.querySelector("ul");
+      function render(data) {
+        data.forEach((element) => {
+          const li = document.createElement("li");
+          li.innerHTML = element;
+          ul.appendChild(li);
+        });
+      }
+
+      $.ajax({
+        url: "/students",
+        method: "get",
+        dataType: "json",
+        success: function (data) {
+          console.log(data);
+          render(data);
+        },
+      });
+
+      /* 
+        跨域问题：
+        通过域名访问页面  http://127.0.0.1:5500/
+
+        ajax 地址也需要是相同的域名 不然会被拦截（安全性考虑）
+        浏览器约束你访问相同的服务器，以防止被黑客注入代码，访问其他其他服务器
+
+        浏览器漏铜：jsonp 绕开跨域限制
+      */
+
+      /*
+        实现异步的方式
+        1. 回调
+        2. promise
+        3. generator
+        4. async await
+      */
+
+      /* 
+      例子 Ajax 获取后台数据
+
+      查询第一个学生的余额
+      1. 获取所有学生
+      2. 通过名字获取 卡号 
+      3. 通过卡号 获取余额
+      */
+
+      const getData = function (url, params, success) {
+        $.ajax({
+          url,
+          method: "get",
+          dataType: "json",
+          data: params,
+          success: function (data) {
+            success(data);
+          },
+          error: function (error) {
+            console.log(error);
+          },
+        });
+      };
+
+      const getData1 = function (url, params) {
+        return new Promise((resolve, reject) => {
+          $.ajax({
+            url,
+            method: "get",
+            dataType: "json",
+            data: params,
+            success: function (data) {
+              resolve(data);
+            },
+            error: function (error) {
+              reject(error);
+            },
+          });
+        });
+      };
+
+      // 查第一个学生的银行余额
+      getData("/students", {}, function (students) {
+        console.log(students);
+        const firstStudent = students[0];
+        getData("/getBankIdByName", { name: firstStudent }, function (bank) {
+          getData("/getMoneyById", { id: bank.id }, function (money) {
+            console.log(money);
+          });
+        });
+      });
+
+      /* 
+       callback hell 回调地狱
+       不停的嵌套 可读性很差 
+
+       通过优化这个问题
+       promise
+       async await
+      */
+      getData1("/students", {})
+        .then((students) => {
+          return getData1("/getBankIdByName", { name: students[0] });
+        })
+        .then((bank) => {
+          return getData1("/getMoneyById", { id: bank.id });
+        })
+        .then((money) => {
+          console.log(money);
+        });
+
+      async function init() {
+        const students = await getData1("/students", {});
+        const bank = await getData1("/getBankIdByName", { name: students[0] });
+        const money = await getData1("/getMoneyById", { id: bank.id });
+        console.log(money);
+      }
+      init();
+    </script>
+  </body>
+</html>

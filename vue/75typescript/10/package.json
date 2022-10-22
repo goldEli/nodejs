@@ -1,0 +1,12 @@
+{
+  "name": "10",
+  "version": "1.0.0",
+  "description": "typescript 是 JavaScript 的超集，js 能做的 ts 都能做，ts 能做 js 不一定能做",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
