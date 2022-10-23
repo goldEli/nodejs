@@ -1,7 +1,8 @@
-import { ref, computed, reactive } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import { defineStore } from "pinia";
+import { useLocalStorage } from "../hook/useLocalStorage";
 
-interface TodoListItem {
+export interface TodoListItem {
   id: number;
   value: string;
   complete: boolean;
@@ -12,12 +13,25 @@ const createId = function () {
 };
 
 export const useTodoListStore = defineStore("todoList", () => {
+  const { getLocalStorage, setLocalStorage } = useLocalStorage();
   const inputVal = ref("");
 
   const todoList = ref<TodoListItem[]>([
     { id: 1, value: "123", complete: true },
     { id: 2, value: "111", complete: false },
   ]);
+
+  onMounted(() => {
+    todoList.value = getLocalStorage();
+  });
+
+  watch(
+    () => todoList.value.length,
+    (newValue, oldValue) => {
+      console.log(newValue, oldValue, todoList);
+      setLocalStorage(todoList.value);
+    }
+  );
 
   const total = computed(() => {
     return todoList.value.length;
