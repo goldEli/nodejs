@@ -28,8 +28,11 @@ export const useTodoListStore = defineStore("todoList", () => {
   watch(
     () => todoList.value.length,
     (newValue, oldValue) => {
-      console.log(newValue, oldValue, todoList);
+      console.log(newValue, oldValue);
       setLocalStorage(todoList.value);
+    },
+    {
+      // deep: true,
     }
   );
 
